@@ -16,7 +16,7 @@ create table if not exists users(
         foreign key (gender_id) references genders(id)
 );
 
-create procedure removeByIds(id1 bigint, id2 bigint)
+create procedure if not exists removeByIds(id1 bigint, id2 bigint)
 begin
     delete from `users` where id between id1 and id2;
 end;
