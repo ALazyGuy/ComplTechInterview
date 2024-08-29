@@ -15,3 +15,6 @@ create table if not exists users(
     constraint user_gender_id_fk
         foreign key (gender_id) references genders(id)
 );
+
+insert into genders(name) values ('male');
+insert into genders(name) values ('female');

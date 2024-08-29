@@ -10,3 +10,7 @@ spring:
       ddl-auto: validate
 server:
   port: 8080
+interview:
+  jwt:
+    secret: cmVhbGx5Y29vbGFuZHNlY3VyZWRzZWNyZXRmb3Jqd3R0b2tlbgo
+    expires: 3600000

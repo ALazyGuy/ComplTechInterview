@@ -1,5 +1,6 @@
 package com.ltp.interview.controller;
 
+import com.ltp.interview.model.dto.JwtResponse;
 import com.ltp.interview.model.dto.UserLoginRequestDto;
 import com.ltp.interview.model.dto.UserRegisterRequestDto;
 import com.ltp.interview.service.UserService;
@@ -18,17 +19,15 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity login(@Validated @RequestBody UserLoginRequestDto userLoginRequestDto) {
-        userService.loginUser(userLoginRequestDto);
-        return ResponseEntity.ok().build();
-        //TODO Add jwt response
+    public ResponseEntity<JwtResponse> login(@Validated @RequestBody UserLoginRequestDto userLoginRequestDto) {
+        final JwtResponse response = userService.loginUser(userLoginRequestDto);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity login(@Validated @RequestBody UserRegisterRequestDto userRegisterRequestDto) {
-        userService.registerUser(userRegisterRequestDto);
-        return ResponseEntity.ok().build();
-        //TODO Add jwt response
+    public ResponseEntity<JwtResponse> login(@Validated @RequestBody UserRegisterRequestDto userRegisterRequestDto) {
+        final JwtResponse response = userService.registerUser(userRegisterRequestDto);
+        return ResponseEntity.ok(response);
     }
 
 }
