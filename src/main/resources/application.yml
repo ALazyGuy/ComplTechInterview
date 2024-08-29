@@ -14,3 +14,5 @@ interview:
   jwt:
     secret: cmVhbGx5Y29vbGFuZHNlY3VyZWRzZWNyZXRmb3Jqd3R0b2tlbgo
     expires: 3600000
+  boot:
+    shutdown: "29-08-2024, 16:27:00"
