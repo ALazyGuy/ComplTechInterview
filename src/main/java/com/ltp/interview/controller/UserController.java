@@ -1,5 +1,6 @@
 package com.ltp.interview.controller;
 
+import com.ltp.interview.model.dto.DeleteMultipleUsersRequestDto;
 import com.ltp.interview.model.dto.UserInfoDto;
 import com.ltp.interview.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET})
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE})
 @RequiredArgsConstructor
 public class UserController {
 
@@ -19,6 +20,16 @@ public class UserController {
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserInfoDto> allUsers() {
         return userService.getAllUsersInfo();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUserById(id);
+    }
+
+    @DeleteMapping(value = "/many", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteManyUsers(@RequestBody DeleteMultipleUsersRequestDto deleteMultipleUsersRequestDto) {
+        userService.deleteUsers(deleteMultipleUsersRequestDto.getUserIds());
     }
 
 }

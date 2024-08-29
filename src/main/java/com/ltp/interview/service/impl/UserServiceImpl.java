@@ -79,4 +79,20 @@ public class UserServiceImpl implements UserService {
         final String token = jwtUtils.generateToken(login);
         return new JwtResponse(token);
     }
+
+    @Override
+    public void deleteUserById(final Long id) {
+        if(id < 0) {
+            return;
+        }
+
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteUsers(final List<Long> ids) {
+        ids.stream()
+                .filter(id -> id >= 0)
+                .forEach(userRepository::deleteById);
+    }
 }

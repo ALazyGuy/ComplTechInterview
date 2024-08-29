@@ -13,4 +13,6 @@ public interface UserService {
     JwtResponse registerUser(final UserRegisterRequestDto userRegisterRequestDto);
     JwtResponse loginUser(final UserLoginRequestDto userLoginRequestDto);
     List<UserInfoDto> getAllUsersInfo();
+    void deleteUserById(final Long id);
+    void deleteUsers(final List<Long> ids);
 }
