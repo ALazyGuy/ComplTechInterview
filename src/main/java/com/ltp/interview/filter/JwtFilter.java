@@ -30,10 +30,12 @@ public class JwtFilter extends OncePerRequestFilter {
         if(header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
             final DecodedJWT decodedJWT = jwtUtils.verify(token);
-            final String login = decodedJWT.getSubject();
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(login);
-            final Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if(decodedJWT != null) {
+                final String login = decodedJWT.getSubject();
+                final UserDetails userDetails = userDetailsService.loadUserByUsername(login);
+                final Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
         filterChain.doFilter(request, response);
     }

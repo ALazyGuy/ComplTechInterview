@@ -14,4 +14,5 @@ public interface UserService {
     void deleteUserById(final Long id);
     void deleteUsers(final List<Long> ids);
     Optional<UserInfoDto> updateCurrentUser(final UserUpdateRequestDto userUpdateRequestDto);
+    LoadAllUsersWebsocketDto getWebsocketResponseOnLoadUsers();
 }

@@ -1,12 +1,14 @@
 package com.ltp.interview.controller;
 
 import com.ltp.interview.model.dto.DeleteMultipleUsersRequestDto;
+import com.ltp.interview.model.dto.LoadAllUsersWebsocketDto;
 import com.ltp.interview.model.dto.UserInfoDto;
 import com.ltp.interview.model.dto.UserUpdateRequestDto;
 import com.ltp.interview.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +21,12 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final SimpMessagingTemplate template;
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UserInfoDto> allUsers() {
+        final LoadAllUsersWebsocketDto wsResponse = userService.getWebsocketResponseOnLoadUsers();
+        template.convertAndSend("/interview/user", wsResponse);
         return userService.getAllUsersInfo();
     }
 

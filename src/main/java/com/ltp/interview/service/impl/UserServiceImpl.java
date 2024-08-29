@@ -13,6 +13,7 @@ import com.ltp.interview.service.UserService;
 import com.ltp.interview.util.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -112,5 +113,17 @@ public class UserServiceImpl implements UserService {
             return Optional.of(userMapper.toUserInfoDto(user));
         }
         return Optional.empty();
+    }
+
+    @Override
+    public LoadAllUsersWebsocketDto getWebsocketResponseOnLoadUsers() {
+        final String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        final Optional<UserEntity> userEntity = userRepository.findByLogin(login);
+        if(userEntity.isPresent()) {
+            final UserInfoDto userInfoDto = userMapper.toUserInfoDto(userEntity.get());
+            return new LoadAllUsersWebsocketDto(userInfoDto, "use request GET /users");
+        }
+
+        throw new UsernameNotFoundException(login);
     }
 }
