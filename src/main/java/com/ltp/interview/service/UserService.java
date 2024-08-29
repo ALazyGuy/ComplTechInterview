@@ -1,12 +1,10 @@
 package com.ltp.interview.service;
 
-import com.ltp.interview.model.dto.JwtResponse;
-import com.ltp.interview.model.dto.UserInfoDto;
-import com.ltp.interview.model.dto.UserLoginRequestDto;
-import com.ltp.interview.model.dto.UserRegisterRequestDto;
+import com.ltp.interview.model.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface UserService {
@@ -15,4 +13,5 @@ public interface UserService {
     List<UserInfoDto> getAllUsersInfo();
     void deleteUserById(final Long id);
     void deleteUsers(final List<Long> ids);
+    Optional<UserInfoDto> updateCurrentUser(final UserUpdateRequestDto userUpdateRequestDto);
 }
