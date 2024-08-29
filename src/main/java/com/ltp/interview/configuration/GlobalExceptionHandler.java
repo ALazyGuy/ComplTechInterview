@@ -13,17 +13,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UnknownGenderNameException.class)
     public ResponseEntity<ErrorMessage> handleUnknownGenderNameException(final UnknownGenderNameException e) {
-        return ResponseEntity.badRequest().body(new ErrorMessage(e.getMessage()));
+        return ResponseEntity.badRequest().body(new ErrorMessage(e.getError()));
     }
 
     @ExceptionHandler(LoginConflictException.class)
     public ResponseEntity<ErrorMessage> handleLoginConflictException(final LoginConflictException e) {
-        return ResponseEntity.badRequest().body(new ErrorMessage(e.getMessage()));
+        return ResponseEntity.badRequest().body(new ErrorMessage(e.getError()));
     }
 
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<ErrorMessage> handleInvalidCredentialsException(final InvalidCredentialsException e) {
-        return ResponseEntity.badRequest().body(new ErrorMessage(e.getMessage()));
+        return ResponseEntity.status(401).body(new ErrorMessage(e.getError()));
     }
 
 }
