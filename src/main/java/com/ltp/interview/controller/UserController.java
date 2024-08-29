@@ -1,14 +1,12 @@
 package com.ltp.interview.controller;
 
-import com.ltp.interview.model.dto.DeleteMultipleUsersRequestDto;
-import com.ltp.interview.model.dto.LoadAllUsersWebsocketDto;
-import com.ltp.interview.model.dto.UserInfoDto;
-import com.ltp.interview.model.dto.UserUpdateRequestDto;
+import com.ltp.interview.model.dto.*;
 import com.ltp.interview.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,6 +42,11 @@ public class UserController {
     public ResponseEntity<UserInfoDto> updateUser(@RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         final Optional<UserInfoDto> userInfoDto = userService.updateCurrentUser(userUpdateRequestDto);
         return userInfoDto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(202).build());
+    }
+
+    @DeleteMapping(value = "/range")
+    public void deleteByIdsInRange(@Validated @RequestBody DeleteInRangeRequestDto dto) {
+        userService.removeByIdsInRange(dto.getStart(), dto.getEnd());
     }
 
 }

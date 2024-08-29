@@ -15,4 +15,5 @@ public interface UserService {
     void deleteUsers(final List<Long> ids);
     Optional<UserInfoDto> updateCurrentUser(final UserUpdateRequestDto userUpdateRequestDto);
     LoadAllUsersWebsocketDto getWebsocketResponseOnLoadUsers();
+    void removeByIdsInRange(final Long id1, final Long id2);
 }

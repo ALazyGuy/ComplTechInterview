@@ -126,4 +126,9 @@ public class UserServiceImpl implements UserService {
 
         throw new UsernameNotFoundException(login);
     }
+
+    @Override
+    public void removeByIdsInRange(final Long id1, final Long id2) {
+        userRepository.removeByIdsInRange(id1, id2);
+    }
 }
