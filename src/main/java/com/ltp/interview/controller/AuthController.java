@@ -4,10 +4,10 @@ import com.ltp.interview.model.dto.JwtResponse;
 import com.ltp.interview.model.dto.UserLoginRequestDto;
 import com.ltp.interview.model.dto.UserRegisterRequestDto;
 import com.ltp.interview.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,13 +19,13 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JwtResponse> login(@Validated @RequestBody UserLoginRequestDto userLoginRequestDto) {
+    public ResponseEntity<JwtResponse> login(@RequestBody @Valid UserLoginRequestDto userLoginRequestDto) {
         final JwtResponse response = userService.loginUser(userLoginRequestDto);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JwtResponse> login(@Validated @RequestBody UserRegisterRequestDto userRegisterRequestDto) {
+    public ResponseEntity<JwtResponse> register(@RequestBody @Valid UserRegisterRequestDto userRegisterRequestDto) {
         final JwtResponse response = userService.registerUser(userRegisterRequestDto);
         return ResponseEntity.ok(response);
     }
