@@ -27,7 +27,7 @@ public class ScheduleConfiguration {
     private String timeToShutdown;
     private LocalDateTime shutdownAfter;
 
-    @Scheduled(cron = "0 */1 * * * *")
+    @Scheduled(cron = "0 */10 * * * *")
     public void shutdownAfter() {
         final LocalDateTime now = LocalDateTime.now();
         if(now.isAfter(shutdownAfter)) {
